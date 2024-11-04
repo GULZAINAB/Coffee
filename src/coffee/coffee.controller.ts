@@ -8,6 +8,7 @@ export class CoffeeController {
     constructor( private readonly coffeeService : CoffeeService){}
     @Get()
     findAll(){
+        //commenting to check progress
         // const {limit, offset} = paginationQuery
         return this.coffeeService.findAll();
     }
