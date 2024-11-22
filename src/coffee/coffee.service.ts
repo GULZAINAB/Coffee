@@ -8,21 +8,23 @@ import { Flavour } from './entity/flavour.entity/flavour.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity/event.entity';
 import { COFFEE_BRANDS } from './coffeconstant';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable({scope : Scope.REQUEST})
-export class CoffeeService {  
+export class CoffeeService {   
   constructor(
     @InjectRepository(coffee)
     private readonly coffeeRepository: Repository<coffee>,
     @InjectRepository(Flavour)
     private readonly flavourRepository: Repository<Flavour>,
     private readonly connection: Connection,
-    @Inject(COFFEE_BRANDS) coffeebrands:String[],
-
+    private readonly configService:ConfigService
+    
   ){
-     console.log("COFFEBRAND")
-  }
+    
 
+  }
+  
   findAll(paginationQuery: PaginationQueryDto) {
     const {limit,offset} =paginationQuery;
     return this.coffeeRepository.find({
@@ -44,6 +46,7 @@ export class CoffeeService {
   }
 
   async create(createCoffeDto: CreateCoffeDto) {
+
     const flavors = await Promise.all(
       createCoffeDto.flavours.map(name => this.preloadFlavorByName(name)),
     );
@@ -51,6 +54,7 @@ export class CoffeeService {
       ...createCoffeDto,
       flavours: flavors,
     });
+
     return this.coffeeRepository.save(coffee);
   }
 

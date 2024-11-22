@@ -1,6 +1,4 @@
-import { DataSource} from 'typeorm'
-
-export const AppDataSource = new DataSource({
+module.exports={
   type: 'postgres',
   host: 'localhost',
   port: 5432,
@@ -9,4 +7,10 @@ export const AppDataSource = new DataSource({
   database: 'postgres',
   entities: ['dist/**/*.entity.js'],
   migrations: ['dist/migrations/*.js'],
-});
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
+};
+
+
+
