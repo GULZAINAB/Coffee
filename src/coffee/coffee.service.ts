@@ -8,7 +8,6 @@ import { Flavour } from './entity/flavour.entity/flavour.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity/event.entity';
 import { COFFEE_BRANDS } from './coffeconstant';
-import { request } from 'http';
 
 @Injectable({scope : Scope.REQUEST})
 export class CoffeeService {  
